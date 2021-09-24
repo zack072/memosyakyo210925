@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="03_js02_sample/localstorage/css/sample.css">
+    <title>課題 写経</title>
+</head>
+
+<body>
+    <header>
+        <h1>課題 駐車場屋の写経</h1>
+    </header>
+    <main style="display: none;">
+        <h2>CP</h2>
+        <input type="text" id="input">
+        <h3>記録</h3>
+        <textarea id="text_area"></textarea>
+        <ul>
+            <li id="save">保存</li>
+            <li id="clear">削除</li>
+        </ul>
+    </main>
+    <footer>okazaki</footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $("main").slideDown(2000);
+        // $(function () {
+        // 1,save クリック
+        $('#save').on('click', function () {
+            var title = $('#input').val();
+            var text = $('#text_area').val();
+            alert("保存しました");
+            var obj = {
+                "title": title,
+                "text": text
+            };
+            var json = JSON.stringify(obj);
+            localStorage.setItem('memo02', json);
+        });
+
+        // 2,clear クリック
+        $('#clear').on('click', function () {
+            localStorage.removeItem('memo02');
+            alert("削除しました");
+            $('#input').val("");
+            $('#text_area').val("");
+        });
+
+        // 3,読み込み・取得
+        if (localStorage.getItem('memo02')) {
+            var json_get = localStorage.getItem('memo02');
+            var obj_get = JSON.parse(json_get);
+            $('#input').val(obj_get.title);
+            $('#text_area').val(obj_get.text);
+        }
+        // });
+    </script>
+</body>
+
+</html>
